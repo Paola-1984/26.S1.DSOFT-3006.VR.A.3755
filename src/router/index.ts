@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue';
+import BaseLayout from '@/layouts/BaseLayout.vue';
+
 
 const Tab1Page = () => import('@/views/Tab1Page.vue');
 const Tab2Page = () => import('@/views/Tab2Page.vue');
@@ -9,7 +11,11 @@ const Tab3Page = () => import('@/views/Tab3Page.vue');
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/seccion'
+  },
+  {
+    path: '/seccion',
+    component: BaseLayout,
   },
   {
     path: '/tabs/',
