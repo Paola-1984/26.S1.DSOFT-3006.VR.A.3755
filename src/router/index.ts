@@ -1,60 +1,51 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue';
 import BaseLayout from '@/layouts/BaseLayout.vue';
 
-
-const Tab1Page = () => import('@/views/Tab1Page.vue');
-const Tab2Page = () => import('@/views/Tab2Page.vue');
-const Tab3Page = () => import('@/views/Tab3Page.vue');
+const Login = () => import('@/views/Loginn.vue');
+const Registro = () => import('@/views/Registro.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: '/seccion'
   },
+{
+  path: '/login',
+  name: 'Login',
+  component: Login,
+  meta:{ 
+    requiresAuth: false
+  },
+},
+{
+  path: '/registro',
+  name: 'Registro',
+  component: Registro,
+  meta:{ 
+    requiresAuth: false
+  },
+},
   {
     path: '/seccion',
     component: BaseLayout,
+    meta:{ 
+      requiresAuth: true
+    },
   },
-  {
-    path: '/tabs/',
-    component: TabsPage,
-    children: [
-      {
-        path: '',
-        redirect: '/tabs/tab1'
-      },
-      {
-        path: 'tab1',
-        component: Tab1Page,
-        redirect: '/tabs/tab1/content',
-        children: [
-          {
-            path: 'content',
-            component: () => import('@/views/Content.vue')
-          },
-          {
-            path: 'otropath',
-            component: () => import('@/views/OtroPath.vue')
-          }
-        ]
-      },
-      {
-        path: 'tab2',
-        component: Tab2Page
-      },
-      {
-        path: 'tab3',
-        component: Tab3Page
-      }
-    ]
-  }
-];
+  
+  ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
-});
+})
 
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth && !localStorage.getItem('token')) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 export default router;
