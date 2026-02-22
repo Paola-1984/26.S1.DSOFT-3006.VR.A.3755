@@ -13,7 +13,7 @@
             <ion-item lines="none">                
                 <ion-input 
                     label="Usuario" 
-                    class="ion-margin-top"
+                    class="ion-margin-top"                 
                     label-placement="floating" 
                     fill="outline" 
                     v-model="userStore.login.username"
