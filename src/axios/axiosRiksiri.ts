@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosRoksiri = axios.create({
-    baseURL: 'http://ap.riksiri.com/api/',
+    baseURL: 'https://api.riksiri.com/api/',
     headers: {
         'Content-Type': 'application/json',     
   },
