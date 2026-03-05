@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axiosRiksiri from "@/axios/axiosRiksiri";
+import { useContentStore } from "./content";
 
 export const useUserStore = defineStore('user', () => {
     const token = ref(localStorage.getItem('token') || null);
@@ -14,6 +15,8 @@ export const useUserStore = defineStore('user', () => {
         password: null,
     });
 
+    const contentStore = useContentStore();
+    // aqui estoy guardando los datos de usuario 
     const userData = ref(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') as string) : null); 
 
     function $setLogin(data: any | null){
@@ -22,6 +25,7 @@ export const useUserStore = defineStore('user', () => {
             localStorage.setItem('token', token.value || '');
             localStorage.setItem('userData', JSON.stringify(data.user));
             userData.value = data.user;
+            contentStore.$setMenu(data.menu);
         }else{
             localStorage.removeItem('token');
             localStorage.removeItem('userData');
