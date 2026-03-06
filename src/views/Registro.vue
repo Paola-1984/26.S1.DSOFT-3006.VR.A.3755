@@ -12,6 +12,7 @@
         <ion-content class="ion-padding">
             <ion-item lines="none">                
                 <ion-input 
+                    :disabled="loading"
                     label="Usuario" 
                     class="ion-margin-top"
                     label-placement="floating" 
@@ -27,6 +28,7 @@
             </ion-item>
             <ion-item lines="none">                
                 <ion-input 
+                    :disabled="loading"
                     label="Email" 
                     class="ion-margin-top"
                     label-placement="floating" 
@@ -42,6 +44,7 @@
             </ion-item>
             <ion-item lines="none">
                 <ion-input 
+                    :disabled="loading"
                     label="Contraseña" 
                     label-placement="floating" 
                     class="ion-margin-top"
@@ -57,7 +60,10 @@
                 </ion-label>
             </ion-item>   
             <ion-item class="ion-margin-bottom" lines="none">
-                <ion-button slot="end" size="default" @click="handleRegister"> Registrarse </ion-button>
+                <ion-button slot="end" size="default" @click="handleRegister" :disabled="loading"> 
+                    <span v-if="!loading">Registrarse</span>
+                    <ion-spinner v-if="loading" name="crescent"></ion-spinner>
+                     </ion-button>
             </ion-item>
         </ion-content>
     </ion-page>
@@ -65,14 +71,16 @@
 </template>
 <script lang="ts" setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, 
-    IonInput, IonButton, IonLabel, IonButtons, alertController } from '@ionic/vue';
+    IonInput, IonButton, IonLabel, IonButtons, alertController, IonSpinner } from '@ionic/vue';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, minLength } from '@vuelidate/validators'
+import  { ref } from 'vue';
 
 const userStore = useUserStore();
 const router = useRouter();
+const loading = ref(false);
 
 const rules = {
     usuario: {
@@ -95,14 +103,17 @@ function handleRegister() {
 
     $v.value.$touch();
     if(!$v.value.$invalid) {
+        loading.value = true;
         userStore.$registro().then( () => {
-            router.push({ name: 'Seccion' });       
+            router.push({ name: 'Seccion' });    
+            loading.value = false;   
         }).catch( error => {
             alertController.create({
                 header: 'Error de registro',
                 message: error.response.data.message,
                 buttons: ['Continuar'],
                 }).then(alert => alert.present());
+            loading.value = false;
         })
     }
 }   

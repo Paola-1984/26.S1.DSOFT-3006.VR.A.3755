@@ -1,6 +1,5 @@
-
 {
-  "name": "mi-primera-aplicacin",
+  "name": "mi-primer-ios-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -37,6 +36,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^8.0.2",
+    "@types/node": "^25.3.5",
     "@vitejs/plugin-legacy": "^7.2.1",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vue/eslint-config-typescript": "^14.6.0",
@@ -44,7 +44,7 @@
     "cypress": "^15.10.0",
     "eslint-plugin-vue": "^10.7.0",
     "jsdom": "^28.0.0",
-    "terser": "^5.46.0",
+    "terser": "^5.4.0",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.18",
