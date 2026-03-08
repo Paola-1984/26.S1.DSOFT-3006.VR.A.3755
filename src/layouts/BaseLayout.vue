@@ -49,6 +49,7 @@
         </ion-toolbar>
         </ion-header>
         <ion-content id="main-content" class="ion-padding">
+           
             <ion-router-outlet></ion-router-outlet>
         </ion-content>
     </ion-page>
