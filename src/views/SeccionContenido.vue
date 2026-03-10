@@ -25,7 +25,6 @@
               @click="siguiente()" 
               class="boton-rojo"
               v-if="contentStore.next.url">Siguiente</ion-button>
-             <ion-progress-bar v-if="contentStore.loading" type="indeterminate"></ion-progress-bar>
             </ion-toolbar>
         </ion-footer>
     </ion-page>
