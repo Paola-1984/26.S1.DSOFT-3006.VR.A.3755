@@ -23,14 +23,16 @@
                                 </ion-item>
                                 <div slot="content">
                                     <ion-list>
-                                        <ion-menu-toggle v-for="(item, itemKey) in menu.sub" :key="itemKey">
-                                            <ion-item 
-                                            :router-link="'/'+item.url"
-                                            @click="contentStore.$getContent(item.internal_name)"
+                                        <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                            <ion-menu-toggle v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                                <ion-item 
+                                                :router-link="'/'+item.url"
+                                                @click="contentStore.$getContent(item.internal_name)"
                                             >
-                                                <ion-label>{{ item.name }}</ion-label>
+                                                     <ion-label>{{ item.name }}</ion-label>
                                             </ion-item>
                                         </ion-menu-toggle>
+                                        </template>
                                     </ion-list>
                                 </div>
                             </ion-accordion>
@@ -38,6 +40,9 @@
                     </ion-accordion-group>
                 </ion-list>
             </ion-content>
+            <ion-footer>
+                <ion-button slot="end" fill="solid" size="small" class="boton-rojo" @click="router.push({ name: 'Camara'})">Cámara</ion-button>
+            </ion-footer>
         </ion-menu>
         <ion-header>
         <ion-toolbar>
@@ -49,7 +54,6 @@
         </ion-toolbar>
         </ion-header>
         <ion-content id="main-content" class="ion-padding">
-           
             <ion-router-outlet></ion-router-outlet>
         </ion-content>
     </ion-page>

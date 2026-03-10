@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Camara',
     component: Camara,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {

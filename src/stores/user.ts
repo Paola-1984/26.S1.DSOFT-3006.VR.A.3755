@@ -26,6 +26,7 @@ export const useUserStore = defineStore('user', () => {
             localStorage.setItem('userData', JSON.stringify(data.user));
             userData.value = data.user;
             contentStore.$setMenu(data.menu);
+            contentStore.$setHome(data.home);
         }else{
             localStorage.removeItem('token');
             localStorage.removeItem('userData');

@@ -9,8 +9,20 @@ export const useContentStore = defineStore('content', () => {
             name: null,
             contenido: null,
             youtube: '',
-        }
+        },
+        internal_name: null,
     }); 
+    const home = ref(localStorage.getItem('home') ? JSON.parse(localStorage.getItem('home') as string) : {
+        url: null,
+        internal_name: '',
+    });
+    
+   
+    const next = ref({
+        id: null,
+        url: null,
+        internal_name: '',
+    });
     const loading = ref(false);
     function setContent(data: any | null){
         content.value = data || {
@@ -26,21 +38,28 @@ export const useContentStore = defineStore('content', () => {
         }   
     }   
 
-    function $getContent(name: string) {
-    loading.value = true;
-    return axiosRiksiri.get('/contenido/' + name)
-        .then(res => {
+    function $setHome(data: any | null){
+        home.value = data || {};
+        localStorage.setItem('home', JSON.stringify(home.value));
+    }   
+
+    function $getContent(name: string){
+        loading.value = true;
+        return axiosRiksiri.get('/contenido/'+name).then( res => {
             setContent(res.data);
-            loading.value = false; // Se apaga la línea azul si hay éxito
+            loading.value = false;
             return res.data;
         })
-        .catch(error => {
-            console.error("Error al cargar contenido:", error);
-            loading.value = false; // ¡IMPORTANTE! Se apaga la línea azul aunque falle
-            return null;
-        });
-}
+    }
 
-    return { content, setContent, menu, $setMenu, $getContent, loading };
+    function $seteaSiguiente(){
+        return axiosRiksiri.post('/seteasiguiente', next.value);
+    }
+
+    function $setNext(data: any | null){
+        next.value = data || {};
+    }
+
+    return { content, setContent, menu, $setMenu, $getContent, loading, home, $setHome, next, $setNext, $seteaSiguiente };
 
 });

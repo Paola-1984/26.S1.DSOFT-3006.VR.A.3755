@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const axiosRoksiri = axios.create({
+const axiosRiksiri = axios.create({
     baseURL: 'https://api.riksiri.com/api/',
     headers: {
         'Content-Type': 'application/json',     
   },
 });
-axiosRoksiri.interceptors.request.use(config => {
+axiosRiksiri.interceptors.request.use(config => {
     const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -14,4 +14,4 @@ axiosRoksiri.interceptors.request.use(config => {
     return config;
 });
 
-export default axiosRoksiri;
+export default axiosRiksiri;
