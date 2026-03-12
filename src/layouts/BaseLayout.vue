@@ -24,7 +24,7 @@
                                 <div slot="content">
                                     <ion-list>
                                         <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
-                                            <ion-menu-toggle v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                            <ion-menu-toggle v-if="item.active ==='yes'">
                                                 <ion-item 
                                                 :router-link="'/'+item.url"
                                                 @click="contentStore.$getContent(item.internal_name)"

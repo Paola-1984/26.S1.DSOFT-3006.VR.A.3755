@@ -14,7 +14,6 @@
                      allowfullscreen>
                     </iframe>
             </div>
-            <pre>{{ contentStore.next }}</pre>
         </ion-content>
         <ion-footer :translucent="true">
             <ion-toolbar>
