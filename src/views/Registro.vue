@@ -4,6 +4,7 @@
             <ion-toolbar>
             
             <ion-title>Registro</ion-title>
+            <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
             <ion-buttons slot="end">
                 <ion-button fill="solid" @click="router.push({ name: 'Login'})">Login</ion-button>
             </ion-buttons>
@@ -71,7 +72,7 @@
 </template>
 <script lang="ts" setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, 
-    IonInput, IonButton, IonLabel, IonButtons, alertController, IonSpinner } from '@ionic/vue';
+    IonInput, IonButton, IonLabel, IonButtons, alertController, IonSpinner, IonProgressBar } from '@ionic/vue';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core'

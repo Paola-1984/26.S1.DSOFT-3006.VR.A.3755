@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'mi.primera.aplicacin',
-  appName: 'mi-primera-aplicacin',
+  appId: 'mi.primera.aplicacion',
+  appName: 'Riksiri',
   webDir: 'dist'
 };
 

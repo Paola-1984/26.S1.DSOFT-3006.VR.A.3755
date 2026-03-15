@@ -14,7 +14,6 @@
                      allowfullscreen>
                     </iframe>
             </div>
-            <pre>{{ contentStore.next }}</pre>
         </ion-content>
         <ion-footer :translucent="true">
             <ion-toolbar>
@@ -29,11 +28,13 @@
             </ion-toolbar>
         </ion-footer>
     </ion-page>
+    <SkeletonText v-else></SkeletonText>
 </template>
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonProgressBar } from '@ionic/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useContentStore } from '@/stores/content';
+import SkeletonText from '@/components/SkeletonText.vue';
 const route = useRoute(); 
 const contentStore = useContentStore();
 const router = useRouter();
@@ -68,7 +69,7 @@ async function setNext(){
     item.sub.map( (sub_item: any) => {
       if(sub_item.id === contentStore.next.id) {
         sub_item.active = 'yes';
-        localStorage.setItem('home', JSON.stringify(contentStore.next))
+        contentStore.$setHome(contentStore.next)
       }
     })
   })
@@ -82,10 +83,11 @@ async function siguiente(){
         
         setNext();
         checkNext();
-        contentStore.$getContent(contentStore.next.internal_name).then( res => {
-            contentStore.$seteaSiguiente();
-            router.push('/' + contentStore.next.url);
-        })
+        contentStore.$seteaSiguiente();
+        router.push('/' + contentStore.next.url);
+        //contentStore.$getContent(contentStore.next.internal_name).then( res => {
+            
+        //})
     }
 }
 </script>

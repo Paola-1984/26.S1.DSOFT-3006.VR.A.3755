@@ -33,14 +33,6 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
-    function $logout(){
-        token.value = null;
-        userData.value = null;
-        localStorage.removeItem('token');
-        localStorage.removeItem('userData');
-        localStorage.removeItem('menu');
-        localStorage.removeItem('home');
-    }
     function $login(){
         return axiosRiksiri.post('login', login.value).then( res => {
             $setLogin(res.data);
@@ -54,5 +46,5 @@ export const useUserStore = defineStore('user', () => {
             return res.data;
         })
     }
-    return { registro, login, $login, token, $setLogin, userData, $registro, $logout };
+    return { registro, login, $login, token, $setLogin, userData, $registro };
 });

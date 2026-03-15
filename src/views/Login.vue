@@ -4,6 +4,7 @@
             <ion-toolbar>
             
                 <ion-title>Login</ion-title>
+                <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
                 <ion-buttons slot="end">
                     <ion-button fill="solid" @click="router.push({ name: 'Registro'})">Registrarse</ion-button>
                 </ion-buttons>
@@ -50,11 +51,9 @@
 
 </template>
 <script lang="ts" setup>
-import {
-    IonPage, IonHeader, IonToolbar,
-    IonTitle, IonContent, alertController,
-    IonItem, IonInput, IonButton, IonButtons, IonSpinner
-} from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, 
+    IonTitle, IonContent, alertController, 
+    IonItem, IonInput, IonButton, IonLabel, IonButtons, IonSpinner, IonProgressBar } from '@ionic/vue';
 import { useUserStore } from '@/stores/user';
 import { useContentStore } from '@/stores/content';
 import { useRouter } from 'vue-router';
@@ -70,8 +69,8 @@ function handleLogin() {
     userStore.$login().then( res => {
         loading.value = false;
         contentStore.$getContent(contentStore.home.internal_name).then( res => {
-            router.push({ path: '/'+contentStore.home.url }); 
-        });      
+            router.push({ path: '/'+contentStore.home.url });
+        });
     }).catch( error => {
         alertController.create({
             header: 'Error de inicio de sesión',

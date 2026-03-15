@@ -76,7 +76,14 @@
     router.push('/login');
   }
 
-  contentStore.$getContent(route.params.name as string)
+  if(!contentStore.content.to && route.params.name){
+    contentStore.$getContent(route.params.name as string)
+  }
+  
+  if(!route.params.name){
+    contentStore.$getContent(contentStore.home.internal_name as string);
+    router.push( {path: '/'+contentStore.home.url })
+  }
   //comentario de prueba
 </script>
 
