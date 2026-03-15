@@ -1,19 +1,20 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axiosRiksiri from "@/axios/axiosRiksiri";
+import { url } from "node:inspector";
 
 export const useContentStore = defineStore('content', () => {
     const menu = ref(localStorage.getItem('menu') ? JSON.parse(localStorage.getItem('menu') as string) : null);
     const content = ref({
         contenido:{
-            name: null,
-            contenido: null,
+            name: '',
+            contenido: '',
             youtube: '',
         },
-        internal_name: null,
+        internal_name: '',
     }); 
     const home = ref(localStorage.getItem('home') ? JSON.parse(localStorage.getItem('home') as string) : {
-        url: null,
+        url: '',
         internal_name: '',
     });
     
@@ -26,12 +27,14 @@ export const useContentStore = defineStore('content', () => {
     const loading = ref(false);
     function setContent(data: any | null){
         content.value = data || {
+            contenido:{name: '', contenido: '', youtube: ''},
+            internal_name: '',
             
         };
     }   
     function $setMenu(data: any | null){
         menu.value = data || [];
-        if(menu.value){
+        if(menu.value.length > 0){
             localStorage.setItem('menu', JSON.stringify(menu.value));
         } else {
             localStorage.removeItem('menu');
@@ -39,7 +42,7 @@ export const useContentStore = defineStore('content', () => {
     }   
 
     function $setHome(data: any | null){
-        home.value = data || {};
+        home.value = data || {url: '', internal_name: ''};
         localStorage.setItem('home', JSON.stringify(home.value));
     }   
 
@@ -49,6 +52,9 @@ export const useContentStore = defineStore('content', () => {
             setContent(res.data);
             loading.value = false;
             return res.data;
+            }).catch(err => {
+            loading.value = false;
+            throw err;
         })
     }
 

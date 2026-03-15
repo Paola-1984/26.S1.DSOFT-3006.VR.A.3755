@@ -24,14 +24,14 @@
                                 <div slot="content">
                                     <ion-list>
                                         <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
-                                            <ion-menu-toggle v-if="item.active ==='yes'">
+                                            <ion-menu-toggle v-if="item.active === 'yes'">
                                                 <ion-item 
                                                 :router-link="'/'+item.url"
                                                 @click="contentStore.$getContent(item.internal_name)"
-                                            >
-                                                     <ion-label>{{ item.name }}</ion-label>
-                                            </ion-item>
-                                        </ion-menu-toggle>
+                                                >
+                                                    <ion-label>{{ item.name }}</ion-label>
+                                                </ion-item>
+                                            </ion-menu-toggle>
                                         </template>
                                     </ion-list>
                                 </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-  import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+  import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar, IonFooter } from '@ionic/vue';
   import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, IonAvatar, IonButton, IonRouterOutlet,
     IonMenuToggle, IonProgressBar   } from '@ionic/vue';
   import { useUserStore } from '@/stores/user';
@@ -76,7 +76,7 @@
     router.push('/login');
   }
 
-  contentStore.$getContent(route.params.name as string);
+  contentStore.$getContent(route.params.name as string)
   //comentario de prueba
 </script>
 

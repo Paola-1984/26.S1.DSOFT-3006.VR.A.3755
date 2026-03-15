@@ -1,6 +1,6 @@
 <template>
-    <ion-page>
-        <ion-content class="ion-padding" v-if="!contentStore.loading">
+    <ion-page v-if="!contentStore.loading">
+        <ion-content class="ion-padding" >
             <div v-html="contentStore.content.contenido.contenido"></div>
             <div class="video-container" v-if="contentStore.content.contenido.youtube">
                 <iframe 
@@ -14,6 +14,7 @@
                      allowfullscreen>
                     </iframe>
             </div>
+            <pre>{{ contentStore.next }}</pre>
         </ion-content>
         <ion-footer :translucent="true">
             <ion-toolbar>
@@ -24,6 +25,7 @@
               @click="siguiente()" 
               class="boton-rojo"
               v-if="contentStore.next.url">Siguiente</ion-button>
+             <ion-progress-bar v-if="contentStore.loading" type="indeterminate"></ion-progress-bar>
             </ion-toolbar>
         </ion-footer>
     </ion-page>
