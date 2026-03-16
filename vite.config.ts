@@ -16,6 +16,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    port: 5174,      // Aquí fijamos el puerto
+    strictPort: true // Evitamos que salte a otros puertos
+  },
   test: {
     globals: true,
     environment: 'jsdom'
@@ -24,6 +28,4 @@ export default defineConfig({
     emptyOutDir: true,
     chunkSizeWarningLimit: 1600,
   }
-
 })
-

@@ -1,49 +1,38 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import BaseLayout from '@/layouts/BaseLayout.vue';
 import { useUserStore } from '@/stores/user';
 
 const Login = () => import('@/views/Login.vue');
-const Registro = () => import('@/views/Registro.vue');  
+const Registro = () => import('@/views/Registro.vue');
 const Camara = () => import('@/views/Camara.vue');
 const SeccionContenidos = () => import('@/views/SeccionContenido.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/seccion'
+    redirect: '/seccion/que-es-riksiri'
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: {
-      requiresAuth: false
-    },
+    meta: { requiresAuth: false },
   },
   {
     path: '/registro',
     name: 'Registro',
     component: Registro,
-    meta: {
-      requiresAuth: false
-    },
+    meta: { requiresAuth: false },
   },
   {
     path: '/camara',
     name: 'Camara',
     component: Camara,
-    meta: {
-      requiresAuth: true
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/seccion',
-    name: 'Seccion',
-    component: BaseLayout,
-    meta: {
-      requiresAuth: true
-    },
+    meta: { requiresAuth: false },
     children: [
       {
         path: ':name',
@@ -59,14 +48,17 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const userStore = useUserStore();
   const isAuthenticated = !!userStore.token;
-  if(to.meta.requiresAuth && !isAuthenticated) {
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
     return '/login';
-  }else if(isAuthenticated && !to.meta.requiresAuth) {
-    return '/seccion';
+  }
+
+  if (isAuthenticated && (to.name === 'Login' || to.name === 'Registro')) {
+    return '/seccion/que-es-riksiri';
   }
 });
 
-export default router
+export default router;
