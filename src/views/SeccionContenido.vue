@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <!-- Footer con botones Anterior y Siguiente -->
+        <!-- Footer botones -->
         <div class="seccion-footer">
             <button class="btn-anterior" @click="anterior()" v-if="canGoBack">
                 ← Anterior
@@ -37,6 +37,12 @@
             <button class="btn-siguiente" @click="siguiente()" v-if="contentStore.next?.url">
                 Siguiente →
             </button>
+        </div>
+
+        <!-- Footer global -->
+        <div class="seccion-global-footer">
+            <span class="footer-brand">Riksiri 2.0 © 2026</span>
+            <span class="footer-creditos">Créditos</span>
         </div>
 
     </div>
@@ -68,7 +74,6 @@ const currentMenuName = computed(() => {
     return '';
 });
 
-// Muestra botón Anterior si no estamos en la primera sección
 const canGoBack = computed(() => {
     const firstItem = contentStore.menu?.[0]?.sub?.[0];
     return firstItem?.internal_name !== route.params.name;
@@ -132,59 +137,63 @@ async function siguiente() {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    background: #f5f5f5;
+    width: 100%;
+    background: #f0f2f5;
 }
 
+/* ── HEADER ── */
 .seccion-header {
     background: #fff;
-    padding: 24px 32px 16px;
-    border-bottom: 1px solid #eee;
+    padding: 18px 24px;
+    border-bottom: 1px solid #e8e8e8;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .seccion-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #1a1f2e;
-    margin: 0 0 8px 0;
+    margin: 0;
 }
 
 .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
+    gap: 6px;
+    font-size: 0.85rem;
     white-space: nowrap;
-    margin-top: 4px;
 }
 
 .breadcrumb-section {
-    color: #7c4dff;
-    font-weight: 500;
+    color: #2979ff;
+    font-weight: 600;
 }
 
-.breadcrumb-sep { color: #ccc; }
+.breadcrumb-sep { color: #bbb; }
 
 .breadcrumb-current {
-    color: #333;
+    color: #555;
     font-weight: 500;
 }
 
+/* ── BODY ── */
 .seccion-body {
-    padding: 24px 32px;
+    padding: 24px;
     background: #fff;
     margin: 16px;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    max-width: 900px;
+    width: calc(100% - 32px);
+    box-sizing: border-box;
 }
 
 .contenido-label {
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: #999;
     text-transform: uppercase;
     margin-bottom: 16px;
@@ -196,14 +205,10 @@ async function siguiente() {
     font-size: 1rem;
     line-height: 1.7;
     color: #333;
+    margin-bottom: 8px;
 }
 
-.contenido-html h1,
-.contenido-html h2 {
-    color: #1a1f2e;
-    margin-top: 0;
-}
-
+/* ── VIDEO ── */
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -211,6 +216,9 @@ async function siguiente() {
     overflow: hidden;
     margin-top: 24px;
     border-radius: 8px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .video-container iframe {
@@ -220,14 +228,17 @@ async function siguiente() {
     border-radius: 8px;
 }
 
+/* ── FOOTER BOTONES ── */
 .seccion-footer {
     display: flex;
     align-items: center;
-    padding: 16px 32px;
+    padding: 16px 24px;
     background: #fff;
     border-top: 1px solid #eee;
     margin: 0 16px 16px;
     border-radius: 0 0 8px 8px;
+    width: calc(100% - 32px);
+    box-sizing: border-box;
 }
 
 .footer-spacer { flex: 1; }
@@ -243,11 +254,10 @@ async function siguiente() {
     cursor: pointer;
     transition: background 0.2s;
 }
-
 .btn-anterior:hover { background: #1e8a7e; }
 
 .btn-siguiente {
-    background: #1a1f2e;
+    background: #7c4dff;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -257,6 +267,16 @@ async function siguiente() {
     cursor: pointer;
     transition: background 0.2s;
 }
+.btn-siguiente:hover { background: #6c3fd6; }
 
-.btn-siguiente:hover { background: #2d3450; }
+/* ── FOOTER GLOBAL ── */
+.seccion-global-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    font-size: 0.85rem;
+}
+
+.footer-brand { color: #7c4dff; font-weight: 500; }
+.footer-creditos { color: #7c4dff; cursor: pointer; font-weight: 500; }
 </style>

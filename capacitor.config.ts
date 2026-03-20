@@ -4,9 +4,15 @@ const config: CapacitorConfig = {
   appId: 'mi.primera.aplicacion',
   appName: 'Riksiri',
   webDir: 'dist',
-  server: {
-    url: 'http://10.0.2.2:5174',
-    cleartext: true
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      backgroundColor: '#1a1f2e',
+      showSpinner: false,
+      androidSplashResourceName: 'splash',
+      splashFullScreen: true,
+      splashImmersive: true
+    }
   }
 };
 
